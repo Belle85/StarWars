@@ -38,9 +38,8 @@ var yoda = {
       console.log("Welcome to the start Wars Page!");
   });
 
-  app.get('/yoda', function(req,res){
-      res.json(yoda);
-      console.log("This is my Yoda Page!");
+  app.get("/yoda", function(req, res) {
+    res.json(yoda);
   });
 
   app.get('/darthmaul', function(req, res){
@@ -50,7 +49,7 @@ var yoda = {
 
   app.get('/obi', function(req, res){
     res.json(obi);
-    console.log("This is my ObiPage!");
+    console.log("This is my Obi Page!");
 });
 
 
