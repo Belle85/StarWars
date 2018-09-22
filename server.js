@@ -9,7 +9,7 @@ var PORT = 3000;
 //   app.use(bodyParser.json())
 
 //Data
-var character = [
+var characters = [
     {
     routeName: "yoda",
     name: "Yoda",
@@ -33,35 +33,29 @@ var character = [
   }];
 
 
-
-
   //Routes
   app.get('/', function(req, res){
       res.send("Welcome to the start Wars Page!");
       console.log("Welcome to the start Wars Page!");
   });
 
-  app.get("/:character", function(req, res){
-      console.log("This is my first character " + character[0].name);
-      var chosen = req.params.character[0].name;
-      console.log(chosen);
-      res.end();
-  })
 
-//These are the individual routes if we were using each charater as their own variable instead of a global Character object for all of them.
-//   app.get("/yoda", function(req, res) {
-//     res.json(yoda);
-//   });
+app.get("/api/characters/:character", function(req, res) {
+   
+    var chosen = req.params.character;
+    console.log(chosen);
+  
+    
+    for (var i = 0; i < characters.length; i++) {
+      if (chosen === characters[i].routeName) {
+        return res.json(characters[i]);
+      }
+    }
+  
+   
+    return res.send("No character found");
+  });
 
-//   app.get('/darthmaul', function(req, res){
-//       res.json(darthmaul);
-//       console.log("This is my Darthmaul Page!");
-//   });
-
-//   app.get('/obi', function(req, res){
-//     res.json(obi);
-//     console.log("This is my Obi Page!");
-// });
 
 
 //App is listening
