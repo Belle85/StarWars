@@ -1,12 +1,13 @@
 //Dependencies
 var express = require("express");
+var bodyParser = require("body-parser");
+
 var app = express();
-// var bodyParser = require("body-parser");
 var PORT = 3000;
 
-//Sets up BodyParser
-//   app.use(bodyParser.urlencoded({ extended: false }))
-//   app.use(bodyParser.json())
+// Sets up the Express app to handle data parsing
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 //Data
 var characters = [
@@ -25,7 +26,7 @@ var characters = [
     forcePoints: 1200
     },
     {
-    routeName: " Obi",
+    routeName: "obi",
     name: "Obi Wan Kenobi",
     role: "Sith Lord",
     age:350,
@@ -34,28 +35,54 @@ var characters = [
 
 
   //Routes
+  //=====================================================================================
+  //This is the route for the home page.
+
   app.get('/', function(req, res){
       res.send("Welcome to the start Wars Page!");
       console.log("Welcome to the start Wars Page!");
   });
 
 
-app.get("/api/characters/:character", function(req, res) {
-   
+// Displays all characters
+    app.get("/api/characters", function(req, res) {
+    return res.json(characters);
+    });
+
+
+// Displays a single character, or shows "No character found"
+    app.get("/api/characters/:character", function(req, res) {
+ 
+    //This variable does not get the information from my object put from the route input in the address bar in the browser
     var chosen = req.params.character;
     console.log(chosen);
   
-    
+    // Filters to show only the selected character   
     for (var i = 0; i < characters.length; i++) {
-      if (chosen === characters[i].routeName) {
-        return res.json(characters[i]);
-      }
+       if (chosen === characters[i].routeName){
+        // This logs the character object requested.
+           console.log(characters[i]);
+        //    This returns in the browser the object requested.
+           return res.json(characters[i]);
+    
+       }
     }
   
-   
+    // Otherwise display "No character found"
     return res.send("No character found");
   });
 
+// Create New Characters - takes in JSON input
+app.post("/api/characters", function(req, res){
+    // req.body hosts is equal to the JSON post sent from the user
+    // This works because of our body-parser middleware
+    var newCharacter = req.body;
+    console.log(newCharacter);
+    // We then add the json the user sent to the character array
+    characters.push(newCharacter);
+    // We then display the JSON to the users
+    res.json(newCharacter)
+})
 
 
 //App is listening
