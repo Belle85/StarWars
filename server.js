@@ -4,7 +4,7 @@ var bodyParser = require("body-parser");
 var path = require("path")
 
 var app = express();
-var PORT = 3000;
+// var PORT = 3000;
 
 // Sets up the Express app to handle data parsing
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -101,6 +101,7 @@ app.post("/api/characters", function(req, res){
 
 
 //App is listening
-app.listen(PORT, function(){
-    console.log("My app is listening on port " + PORT);
-});
+app.listen(process.env.PORT || 3000)
+// app.listen(PORT, function(){
+//     console.log("My app is listening on port " + PORT);
+// });

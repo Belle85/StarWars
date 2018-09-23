@@ -1,0 +1,12 @@
+#indexContainer{
+    /* background: url("./assets/images/starwarsPic1.jpg"), */
+    background: blue;
+}
+
+.jumbotron{
+    background: yellow;
+}
+
+h1{
+    color: orange;
+}
