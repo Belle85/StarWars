@@ -46,8 +46,8 @@ var characters = [
   });
 
   //Takes use to the route displaying the page where a charcter can be added.
-  app.get('/add', function(req, res){
-      res.sendFile(path.join(__dirname, "add.html"));
+  app.get("/add", function(req, res) {
+    res.sendFile(path.join(__dirname, "add.html"));
   });
 
 
