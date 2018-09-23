@@ -1,6 +1,7 @@
 //Dependencies
 var express = require("express");
 var bodyParser = require("body-parser");
+var path = require("path")
 
 var app = express();
 var PORT = 3000;
@@ -39,7 +40,8 @@ var characters = [
   //This is the route for the home page.
 
   app.get('/', function(req, res){
-      res.send("Welcome to the start Wars Page!");
+    //   res.send("Welcome to the start Wars Page!");
+    res.sendFile(path.join(__dirname, "index.html"))
       console.log("Welcome to the start Wars Page!");
   });
 
@@ -74,10 +76,12 @@ var characters = [
 
 // Create New Characters - takes in JSON input
 app.post("/api/characters", function(req, res){
+
     // req.body hosts is equal to the JSON post sent from the user
     // This works because of our body-parser middleware
     var newCharacter = req.body;
     console.log(newCharacter);
+    
     // We then add the json the user sent to the character array
     characters.push(newCharacter);
     // We then display the JSON to the users
