@@ -13,26 +13,27 @@ app.use(bodyParser.json());
 //Data
 var characters = [
     {
-    routeName: "yoda",
-    name: "Yoda",
-    role: "Jedi Master",
-    age: 900,
-    forcePoints: 2000
+      routeName: "yoda",
+      name: "Yoda",
+      role: "Jedi Master",
+      age: 900,
+      forcePoints: 2000
     },
     {
-    routeName: "darthmaul",
-    name: "Darth Maul",
-    role: "Sith Lord",
-    age: 200,
-    forcePoints: 1200
+      routeName: "darthmaul",
+      name: "Darth Maul",
+      role: "Sith Lord",
+      age: 200,
+      forcePoints: 1200
     },
     {
-    routeName: "obi",
-    name: "Obi Wan Kenobi",
-    role: "Sith Lord",
-    age:350,
-    forcePoints: 1500
-  }];
+      routeName: "obiwankenobi",
+      name: "Obi Wan Kenobi",
+      role: "Jedi Master",
+      age: 55,
+      forcePoints: 1350
+    }
+  ];
 
 
   //Routes
@@ -41,28 +42,28 @@ var characters = [
 
   app.get('/', function(req, res){
     //   res.send("Welcome to the start Wars Page!");
-    res.sendFile(path.join(__dirname, "index.html"))
-      console.log("Welcome to the start Wars Page!");
+    res.sendFile(path.join(__dirname, "index.html"));
+    //   console.log("Welcome to the start Wars Page!");
   });
 
   //Takes use to the route displaying the page where a charcter can be added.
   app.get("/add", function(req, res) {
     res.sendFile(path.join(__dirname, "add.html"));
   });
-
+  
 
 // Displays all characters
-    app.get("/api/characters", function(req, res) {
+app.get("/api/characters", function(req, res) {
     return res.json(characters);
-    });
+  });
 
 
 // Displays a single character, or shows "No character found"
     app.get("/api/characters/:character", function(req, res) {
  
     //This variable does not get the information from my object put from the route input in the address bar in the browser
-    var chosen = req.params.character;
-    console.log(chosen);
+    var chosen = req.params.characters;
+    console.log("This is my chosen charater: " + chosen);
   
     // Filters to show only the selected character   
     for (var i = 0; i < characters.length; i++) {
@@ -71,7 +72,6 @@ var characters = [
            console.log(characters[i]);
         //    This returns in the browser the object requested.
            return res.json(characters[i]);
-    
        }
     }
   
@@ -85,16 +85,18 @@ app.post("/api/characters", function(req, res){
     // req.body hosts is equal to the JSON post sent from the user
     // This works because of our body-parser middleware
     var newCharacter = req.body;
+
+    newCharacter.routeName = newCharacter.name.replace(/\s+/g, "").toLowerCase();
     console.log(newCharacter);
     
     // We then add the json the user sent to the character array
     characters.push(newCharacter);
     // We then display the JSON to the users
     res.json(newCharacter)
-})
+});
 
 
 //App is listening
 app.listen(PORT, function(){
     console.log("My app is listening on port " + PORT);
-})
+});

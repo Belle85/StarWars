@@ -58,12 +58,11 @@
     <script type="text/javascript">
         $("#search-btn").on("click", function(){
             var searchedCharacter = $("#character-search").val().trim();
-            alert("my button is working");
+            // alert("my button is working");
 
             searchedCharacter = searchedCharacter.replace(/\s+/g, "").toLowerCase();
 
             $.get("/api/characters/" + searchedCharacter, function(data){
-                Console.log(" This is my data: " + data);
                 if (data){
                     $('#stats').show();
                     $('#name').text(data.name);
