@@ -45,6 +45,11 @@ var characters = [
       console.log("Welcome to the start Wars Page!");
   });
 
+  //Takes use to the route displaying the page where a charcter can be added.
+  app.get('/add', function(req, res){
+      res.sendFile(path.join(__dirname, "add.html"));
+  });
+
 
 // Displays all characters
     app.get("/api/characters", function(req, res) {
